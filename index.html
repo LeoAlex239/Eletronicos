@@ -17,23 +17,57 @@
 <body>
   <script src="script.js"></script>
   <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
-  <div>
-          <table class="table" id="tabela-de-dados">
-        <thead>
-          <tr>
-            <th scope="col">Tipo</th>
-            <th scope="col">Marca</th>
-            <th scope="col">Tamanho</th>
-            <th scope="col">Preço</th>
-          </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-</table>
-  </div>
+          <div>
+                  <table class="table" id="tabela-de-dados">
+                <thead>
+                  <tr>
+                  
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Tamanho</th>
+                    <th scope="col">Preço</th>
+                    
+        
+        
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+        </table>
+          </div>
+  
+<input id="tipo" type="text" placeholder="Tipo"/>
+<input id="marca" type="text" placeholder="Marca"/>
+<input id="tamanho" type="text" placeholder="Tamanho"/>
+<input id="preco" type="number" placeholder="Preço"/>
+<button id="createButton">Adicionar</button>
 </body>
   <script src="https://www.parsecdn.com/js/parse-1.18.7.min.js"></script>
+<script>
+    Parse.initialize("IFGYuqOF6XxkHvAB1kb8dSvG6u1WhKDRtF2oHBls", "NMv3pD5lMSQppXRfVepDHrj1oqxWjhEvEJgMJtk6"); 
+  Parse.serverURL = "https://parseapi.back4app.com/";
+
+(async () => {
+  const myNewObject = new Parse.Object('Eletrodomesticos');
+  myNewObject.set('Tipo', document.getElementById("tipo").value);
+  myNewObject.set('Marca', document.getElementById("marca").value);
+  myNewObject.set('Tamanho', document.getElementById("tamanho").value);
+  myNewObject.set('Preco', document.getElementById("preco").value);
+  try {
+    const result = await myNewObject.save();
+    // Access the Parse Object attributes using the .GET method
+    console.log('Eletrodomesticos created', result);
+  } catch (error) {
+    console.error('Error while creating Eletrodomesticos: ', error);
+  }
+})();
+
+// Add on click listener to call the create parse user function
+document.getElementById("createButton").addEventListener("click", function async () {;
+});
+  
+</script>
 <script>
     Parse.initialize("IFGYuqOF6XxkHvAB1kb8dSvG6u1WhKDRtF2oHBls", "NMv3pD5lMSQppXRfVepDHrj1oqxWjhEvEJgMJtk6"); 
   Parse.serverURL = "https://parseapi.back4app.com/";
@@ -52,6 +86,9 @@
       var marca = object.get("Marca");
       var tamanho = object.get("Tamanho");
       var preco = object.get("Preco");
+    
+  
+      
       
       var row = tabelaBody.insertRow(-1);
       var cell1 = row.insertCell(0);
@@ -63,7 +100,6 @@
       cell2.innerHTML = marca;
       cell3.innerHTML = tamanho;
       cell4.innerHTML = preco;
-      // Adicione mais colunas conforme necessário
     }
   }).catch(function(error) {
     console.error("Erro ao consultar os dados: " + error.message);
